@@ -1,7 +1,10 @@
+import { Shop }  from '../src/gilded_rose.js';
+import {ItemTypes, ItemFactory} from '../src/Items/index.js';
+
 describe("Gilded Rose", function () {
     describe("normal item", function () {
         it("should lower sellIn and quality by 1 for every item", function () {
-            const gildedRose = new Shop([new Item("normal item", 1, 1)]);
+            const gildedRose = new Shop([ItemFactory.create("normal item", 1, 1)]);
 
             const items = gildedRose.updateQuality();
 
@@ -11,7 +14,7 @@ describe("Gilded Rose", function () {
         });
 
         it("should degrade twice as fast when sell in has passed", function () {
-            const gildedRose = new Shop([new Item("normal item", 0, 5)]);
+            const gildedRose = new Shop([ItemFactory.create("normal item", 0, 5)]);
 
             const items = gildedRose.updateQuality();
 
@@ -21,7 +24,7 @@ describe("Gilded Rose", function () {
         });
 
         it("should never have a negative quality", function () {
-            const gildedRose = new Shop([new Item("normal item", 0, 0)]);
+            const gildedRose = new Shop([ItemFactory.create("normal item", 0, 0)]);
 
             const items = gildedRose.updateQuality();
 
@@ -29,7 +32,7 @@ describe("Gilded Rose", function () {
         });
 
         it("should never have a negative quality when sellin is positive", function () {
-            const gildedRose = new Shop([new Item("normal item", 1, 0)]);
+            const gildedRose = new Shop([ItemFactory.create("normal item", 1, 0)]);
 
             const items = gildedRose.updateQuality();
 
@@ -41,7 +44,7 @@ describe("Gilded Rose", function () {
     describe("Aged Brie", function () {
         it("should increase quality when it gets older", function () {
 
-            const gildedRose = new Shop([new Item("Aged Brie", 1, 0)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.AGED_BRIE, 1, 0)]);
 
             const items = gildedRose.updateQuality();
 
@@ -50,7 +53,7 @@ describe("Gilded Rose", function () {
 
         it("should increase quality but never greater 50", function () {
 
-            const gildedRose = new Shop([new Item("Aged Brie", 1, 50)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.AGED_BRIE, 1, 50)]);
 
             const items = gildedRose.updateQuality();
 
@@ -59,7 +62,7 @@ describe("Gilded Rose", function () {
 
         it("should increase quality by two if sellin is negative", function () {
 
-            const gildedRose = new Shop([new Item("Aged Brie", -1, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.AGED_BRIE, -1, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -69,7 +72,7 @@ describe("Gilded Rose", function () {
 
     describe("Sulfuras", function () {
         it("should never been sold and quality never change", function () {
-            const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 1, 1)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.SULFURAS, 1, 1)]);
 
             const items = gildedRose.updateQuality();
 
@@ -78,7 +81,7 @@ describe("Gilded Rose", function () {
         });
 
         it("should never been sold and quality never change even with higher values", function () {
-            const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 10, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.SULFURAS, 10, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -88,10 +91,9 @@ describe("Gilded Rose", function () {
     });
 
     describe("Backstage passes", function () {
-        const passName = "Backstage passes to a TAFKAL80ETC concert";
 
         it("increases by one in quality with sellIn higher 10", function(){
-            const gildedRose = new Shop([new Item(passName, 11, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 11, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -99,7 +101,7 @@ describe("Gilded Rose", function () {
         });
 
         it("increases by two in quality when sellIn equals 10", function(){
-            const gildedRose = new Shop([new Item(passName, 10, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 10, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -107,7 +109,7 @@ describe("Gilded Rose", function () {
         });
 
         it("increases by two in quality when sellIn lower 10 but higher 5", function(){
-            const gildedRose = new Shop([new Item(passName, 9, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 9, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -115,7 +117,7 @@ describe("Gilded Rose", function () {
         });
 
         it("increases by three in quality when sellIn equals 5", function(){
-            const gildedRose = new Shop([new Item(passName, 5, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 5, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -123,7 +125,7 @@ describe("Gilded Rose", function () {
         });
 
         it("increases by three in quality when sellIn is lower 5 and higher 1", function(){
-            const gildedRose = new Shop([new Item(passName, 4, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 4, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -131,7 +133,7 @@ describe("Gilded Rose", function () {
         });
 
         it("increases by three in quality when sellIn equals 1", function(){
-            const gildedRose = new Shop([new Item(passName, 1, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 1, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -139,7 +141,7 @@ describe("Gilded Rose", function () {
         });
 
         it("quality drops to zero when sellIn equals 0", function(){
-            const gildedRose = new Shop([new Item(passName, 0, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 0, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -147,7 +149,7 @@ describe("Gilded Rose", function () {
         });
 
         it("quality drops to zero when sellIn lower 0", function(){
-            const gildedRose = new Shop([new Item(passName, -1, 10)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, -1, 10)]);
 
             const items = gildedRose.updateQuality();
 
@@ -155,7 +157,7 @@ describe("Gilded Rose", function () {
         });
 
         it("quality caps at 50 when it increases by one and sellIn higher 10", function(){
-            const gildedRose = new Shop([new Item(passName, 11, 50)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 11, 50)]);
 
             const items = gildedRose.updateQuality();
 
@@ -163,7 +165,7 @@ describe("Gilded Rose", function () {
         });
 
         it("quality caps at 50 when it increases by three and sellIn equals 5", function(){
-            const gildedRose = new Shop([new Item(passName, 5, 48)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 5, 48)]);
 
             const items = gildedRose.updateQuality();
 
@@ -171,7 +173,7 @@ describe("Gilded Rose", function () {
         });
 
         it("quality caps at 50 when it increases by two and sellIn equals 10", function(){
-            const gildedRose = new Shop([new Item(passName, 10, 49)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.BACKSTAGE_PASS, 10, 49)]);
 
             const items = gildedRose.updateQuality();
 
@@ -181,7 +183,7 @@ describe("Gilded Rose", function () {
 
     describe("Conjured Item", function() {
         it("degrades twice as fast in quality", function() {
-            const gildedRose = new Shop([new Item("Conjured", 10, 50)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.CONJURED, 10, 50)]);
 
             const items = gildedRose.updateQuality();
 
@@ -189,7 +191,7 @@ describe("Gilded Rose", function () {
         })
 
         it("degrades twice as fast in quality with sellIn lower zero", function() {
-            const gildedRose = new Shop([new Item("Conjured", -1, 50)]);
+            const gildedRose = new Shop([ItemFactory.create(ItemTypes.CONJURED, -1, 50)]);
 
             const items = gildedRose.updateQuality();
 
